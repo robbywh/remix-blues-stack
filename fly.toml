@@ -5,6 +5,7 @@ processes = [ ]
 
 [env]
 PORT = "8080"
+PRIMARY_REGION="sin"
 
 [deploy]
 release_command = "npx prisma migrate deploy"

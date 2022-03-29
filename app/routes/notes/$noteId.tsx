@@ -12,6 +12,10 @@ type LoaderData = {
 };
 
 export const loader: LoaderFunction = async ({ request, params }) => {
+  // throw new Response("No random joke found");
+  // throw new Response("No random joke found", {
+  //   status: 404
+  // });
   const userId = await requireUserId(request);
   invariant(params.noteId, "noteId not found");
 
@@ -25,15 +29,12 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 export const action: ActionFunction = async ({ request, params }) => {
   const userId = await requireUserId(request);
   invariant(params.noteId, "noteId not found");
-
   await deleteNote({ userId, id: params.noteId });
-
   return redirect("/notes");
 };
 
 export default function NoteDetailsPage() {
   const data = useLoaderData() as LoaderData;
-
   return (
     <div>
       <h3 className="text-2xl font-bold">{data.note.title}</h3>
